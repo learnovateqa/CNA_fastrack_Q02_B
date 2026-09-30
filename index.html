@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CNA Levels 4 &amp; 5 — Week 2 Quiz</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: { extend: { colors: {
+    brand: { 50:'#fdf2f8',100:'#fce7f3',200:'#fbcfe8',300:'#f9a8d4',400:'#f472b6',500:'#ec4899',600:'#db2777',700:'#be185d' },
+    teal:  { 50:'#effbfa',100:'#ddf1f1',300:'#8ed3d2',500:'#0f7c80',700:'#0b5e61' },
+    ink:   { 900:'#0b5e61',800:'#0f7c80',700:'#334155' } },
+    fontFamily: { display: ['Lora','Georgia','serif'] } } }
+}
+</script>
+<style>
+  body { background:#fdf7fa; }
+  .font-display, h1,h2,h3 { font-family:"Lora",Georgia,serif; }
+  .fade { animation: fade .35s ease; }
+  @keyframes fade { from { opacity:0; transform: translateY(6px);} to {opacity:1; transform:none;} }
+  .pal-btn { transition: all .15s ease; }
+  @media print {
+    .no-print { display:none !important; }
+    body { background:#fff; }
+    .print-block { break-inside: avoid; box-shadow:none !important; border:1px solid #cbd5e1 !important; }
+    .print-full { max-width:100% !important; }
+  }
+
+/* drag and drop */
+.chip { cursor: grab; user-select: none; touch-action: manipulation; }
+.chip.sel { outline: 3px solid #ec4899; outline-offset: 2px; }
+.slot.over { background: #fdf2f8 !important; border-color: #ec4899 !important; }
+</style>
+</head>
+<body class="text-slate-800">
+
+<!-- ═════════ HEADER ═════════ -->
+<header class="sticky top-0 z-40 bg-ink-900 text-white shadow-lg no-print border-b-4 border-brand-400">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
+    <div class="w-10 h-10 rounded-lg bg-brand-500 grid place-items-center shrink-0">
+      <i class="fa-solid fa-user-nurse"></i>
+    </div>
+    <div class="min-w-0 flex-1">
+      <h1 class="font-display font-bold text-base sm:text-lg leading-tight truncate">CNA Levels 4 &amp; 5 — Week 2 Quiz</h1>
+      <p class="text-[11px] sm:text-xs text-teal-100 truncate">Body Structure · Preventing Infection · Vital Signs &amp; Oxygen · Chapters 7 · 12 · 21 · 26 · 28</p>
+    </div>
+    <span class="hidden md:inline-flex items-center gap-1 text-[10px] font-bold tracking-wider uppercase bg-white/10 text-brand-200 border border-brand-300/50 rounded-full px-3 py-1">
+      <i class="fa-solid fa-shield-heart"></i> WHO standards
+    </span>
+    <div class="hidden sm:block text-right border-l border-white/15 pl-3">
+      <p class="text-xs font-semibold leading-tight">Maria Tongga, BSN, RN, RM</p>
+      <p class="text-[10px] text-brand-200">CNA Instructor</p>
+    </div>
+  </div>
+</header>
+
+<!-- ═════════ SCREEN 0 · TIME LOCK ═════════ -->
+<section id="screen-lock" class="hidden fade">
+  <div class="max-w-xl mx-auto px-4 py-16 text-center">
+    <div class="bg-ink-900 text-white rounded-2xl shadow-xl p-10">
+      <div class="w-20 h-20 rounded-full bg-brand-500/15 border border-brand-500/40 grid place-items-center mx-auto mb-6">
+        <i class="fa-solid fa-lock text-3xl text-brand-400"></i>
+      </div>
+      <h2 class="font-display text-2xl font-bold mb-2">This exam is locked</h2>
+      <p class="text-teal-100 text-sm mb-6">It opens on <span id="lock-when" class="text-brand-300 font-semibold"></span> (Doha time).</p>
+      <div class="grid grid-cols-3 gap-3 max-w-sm mx-auto">
+        <div class="bg-white/5 rounded-xl py-4"><p id="cd-h" class="text-3xl font-bold">00</p><p class="text-[10px] uppercase tracking-widest text-slate-400">Hours</p></div>
+        <div class="bg-white/5 rounded-xl py-4"><p id="cd-m" class="text-3xl font-bold">00</p><p class="text-[10px] uppercase tracking-widest text-slate-400">Minutes</p></div>
+        <div class="bg-white/5 rounded-xl py-4"><p id="cd-s" class="text-3xl font-bold">00</p><p class="text-[10px] uppercase tracking-widest text-slate-400">Seconds</p></div>
+      </div>
+      <p class="text-xs text-slate-400 mt-6">The page unlocks by itself. You do not need to reload.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ SCREEN 1 · REGISTRATION + REVIEWER ═════════ -->
+<section id="screen-home" class="hidden fade">
+  <div class="max-w-6xl mx-auto px-4 py-8 grid lg:grid-cols-3 gap-6">
+
+    <!-- registration -->
+    <aside class="lg:col-span-1 lg:sticky lg:top-24 self-start">
+      <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+        <div class="bg-ink-900 text-white px-5 py-4">
+          <h2 class="font-display text-lg font-bold">Examinee registration</h2>
+          <p class="text-xs text-teal-100">Fill this in to start the exam.</p>
+        </div>
+        <div class="p-5 space-y-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Full name</label>
+            <input id="reg-name" type="text" autocomplete="name" placeholder="e.g. Fatima Al Sayed"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-400 focus:border-brand-400 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Email</label>
+            <input id="reg-email" type="email" autocomplete="email" placeholder="you@email.com"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-400 focus:border-brand-400 outline-none">
+            <p id="reg-msg" class="text-xs text-brand-600 mt-1 hidden"></p>
+          </div>
+          <dl class="grid grid-cols-3 gap-2 text-center pt-1">
+            <div class="bg-slate-50 rounded-lg py-2"><dt class="text-[10px] uppercase text-slate-500">Items</dt><dd class="font-bold text-ink-900">100</dd></div>
+            <div class="bg-slate-50 rounded-lg py-2"><dt class="text-[10px] uppercase text-slate-500">Minutes</dt><dd class="font-bold text-ink-900">150</dd></div>
+            <div class="bg-slate-50 rounded-lg py-2"><dt class="text-[10px] uppercase text-slate-500">To pass</dt><dd class="font-bold text-ink-900">75%</dd></div>
+          </dl>
+          <button id="btn-start" disabled
+            class="w-full rounded-lg bg-brand-500 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold py-3 text-sm hover:bg-brand-600 transition">
+            <i class="fa-solid fa-play mr-1"></i> Start exam
+          </button>
+          <p class="text-[11px] text-slate-500 leading-relaxed">
+            The timer starts when you press Start. This exam follows the licensure pattern: one written paper of 100 items in 5 parts (Identification, True or False, Multiple Choice, Case Study, Drag and Drop), 150 minutes, 75% to pass, and unlimited attempts. The skills evaluation is taken separately with your instructor. The exam submits by itself when the time ends.
+          </p>
+        </div>
+      </div>
+      <div class="mt-4 bg-teal-50 border border-teal-300 rounded-2xl p-4">
+        <p class="text-xs font-bold uppercase tracking-wider text-teal-700 mb-1"><i class="fa-solid fa-star mr-1"></i> The Golden Rule</p>
+        <p class="text-sm text-ink-800 font-semibold">Observe · Assist · Document · Report</p>
+        <p class="text-xs text-ink-700 mt-1">A nursing assistant reports to the supervising nurse. A CNA does not diagnose, prescribe, give medications, take doctor's orders, or change the care plan.</p>
+      </div>
+    </aside>
+
+    <!-- reviewer -->
+    <div class="lg:col-span-2">
+      <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-5 mb-4">
+        <h2 class="font-display text-xl font-bold text-ink-900">Study reviewer</h2>
+        <p class="text-sm text-slate-600">Open each module and review before you start. Everything in the exam comes from these six modules.</p>
+      </div>
+      <div id="reviewer" class="space-y-3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ SCREEN 2 · EXAM ═════════ -->
+<section id="screen-exam" class="hidden fade">
+  <div class="sticky top-[60px] sm:top-[64px] z-30 bg-white border-b border-slate-200 shadow-sm no-print">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center gap-3">
+      <div id="avatar" class="w-9 h-9 rounded-full bg-teal-500 text-white grid place-items-center text-xs font-bold shrink-0">--</div>
+      <div class="min-w-0 flex-1">
+        <p id="exam-name" class="text-xs font-bold text-ink-900 truncate">Candidate</p>
+        <div class="h-2 bg-slate-200 rounded-full mt-1 overflow-hidden">
+          <div id="bar" class="h-full bg-brand-500 rounded-full transition-all" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="text-right shrink-0">
+        <p id="clock" class="font-mono font-bold text-ink-900 text-lg leading-none">150:00</p>
+        <p id="progress-txt" class="text-[10px] text-slate-500">0 of 100 saved</p>
+      </div>
+      <button id="btn-submit" class="shrink-0 rounded-lg bg-ink-900 hover:bg-ink-800 text-white text-xs font-bold px-3 py-2.5">
+        <i class="fa-solid fa-paper-plane mr-1"></i> Submit
+      </button>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2">
+      <div id="qcard" class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 min-h-[340px]"></div>
+      <div class="flex items-center justify-between mt-4">
+        <button id="btn-prev" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold hover:bg-slate-50">
+          <i class="fa-solid fa-arrow-left mr-1"></i> Back
+        </button>
+        <button id="btn-next" class="rounded-lg bg-teal-500 hover:bg-teal-700 text-white px-5 py-2.5 text-sm font-bold">
+          Next <i class="fa-solid fa-arrow-right ml-1"></i>
+        </button>
+      </div>
+    </div>
+    <aside class="lg:sticky lg:top-40 self-start">
+      <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-4">
+        <p class="text-xs font-bold uppercase tracking-wider text-ink-700 mb-3">Question palette</p>
+        <div id="palette"></div>
+        <div class="mt-4 space-y-1.5 text-[11px] text-slate-600">
+          <p><span class="inline-block w-3 h-3 rounded bg-brand-500 align-middle mr-2"></span>Active</p>
+          <p><span class="inline-block w-3 h-3 rounded bg-teal-500 align-middle mr-2"></span>Saved</p>
+          <p><span class="inline-block w-3 h-3 rounded bg-slate-200 border border-slate-300 align-middle mr-2"></span>Pending</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ═════════ SCREEN 3 · SCORECARD ═════════ -->
+<section id="screen-result" class="hidden fade">
+  <div class="max-w-4xl mx-auto px-4 py-8 print-full">
+    <div id="score-card" class="bg-ink-900 text-white rounded-2xl shadow-xl p-8 mb-6 print-block"></div>
+    <div class="flex flex-wrap gap-3 mb-6 no-print">
+      <button onclick="window.print()" class="rounded-lg bg-white border border-slate-300 px-4 py-2.5 text-sm font-semibold hover:bg-slate-50"><i class="fa-solid fa-print mr-1"></i> Print / save as PDF</button>
+      <button id="btn-retake" class="rounded-lg bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 text-sm font-bold"><i class="fa-solid fa-rotate-right mr-1"></i> Take it again</button>
+      <span id="mail-status" class="text-xs text-slate-500 self-center"></span>
+    </div>
+    <h3 class="font-display text-xl font-bold text-ink-900 mb-3">Item by item</h3>
+    <div id="review" class="space-y-3"></div>
+  </div>
+</section>
+
+<footer class="no-print text-center text-xs text-slate-500 py-8">
+  CNA Levels 4 &amp; 5 · Week 2 · Prepared by Maria Tongga, BSN, RN, RM · Based on WHO standards and facility policy
+</footer>
+
+<script>
+/* ══════════════════════ CONFIG ══════════════════════ */
+const CONFIG = {
+  title: "CNA Levels 4 & 5 — Week 2 Quiz (Ch 7 · 12 · 21 · 26 · 28)",
+  instructor: "Maria Tongga, BSN, RN, RM",
+  // To schedule the exam, put a future Doha time here, e.g. "2026-09-25T16:30:00+03:00"
+  releaseISO: "2026-01-01T08:00:00+03:00",
+  email: "mariaeftongga@gmail.com",
+  minutes: 150,
+  maxAttempts: 0,   // 0 = unlimited attempts; put a number (e.g. 3) to set a limit
+  passPct: 75
+};
+
+/* ══════════════════════ REVIEWER ══════════════════════ */
+const REVIEWER = [
+ { ch:"Session 1 · Chapter 7", title:"How the body is built — cells, tissues, organs, systems", points:[
+   "<b>Cell</b> = the basic unit of life. <b>Cell membrane</b> holds it together and controls what enters and leaves · <b>nucleus</b> is the control centre (DNA) · <b>cytoplasm</b> is where the work happens · <b>mitochondria</b> make energy.",
+   "<b>Every cell needs:</b> oxygen · water · food (nutrients) · the right temperature · waste removed. Take any one away and the cell is damaged, then the tissue, then the organ.",
+   "<b>Four tissues:</b> epithelial (covers and lines) · connective (joins and supports — bone, blood, fat) · muscle (moves) · nervous (carries messages).",
+   "<b>The order:</b> cells → tissues → organs → systems → the whole person."]},
+ { ch:"Session 1 · Chapter 7", title:"The eleven body systems", points:[
+   "<b>Integumentary</b> (skin) — first barrier, temperature, feeling. Report redness, broken skin, rash, bruising.",
+   "<b>Skeletal</b> — 206 bones; shape, protection, movement, blood cells made in marrow. <b>Joint</b> = where two bones meet.",
+   "<b>Muscular</b> — movement, posture and body heat. Unused muscles shorten into a <b>contracture</b>.",
+   "<b>Nervous</b> — brain, spinal cord and nerves; the control centre. Report new confusion, weakness, slurred speech.",
+   "<b>Endocrine</b> — glands make <b>hormones</b> (chemical messengers) carried in the blood. Thyroid, pancreas (insulin), adrenal.",
+   "<b>Cardiovascular</b> — heart, blood and vessels. <b>Arteries</b> carry blood away from the heart, <b>veins</b> bring it back, <b>capillaries</b> exchange oxygen and waste.",
+   "<b>Lymphatic and immune</b> — drains fluid and fights infection.",
+   "<b>Respiratory</b> — nose → trachea → bronchi → lungs → <b>alveoli</b>, where oxygen enters the blood and carbon dioxide leaves.",
+   "<b>Digestive</b> — mouth → oesophagus → stomach → small intestine (where food is absorbed) → large intestine (water absorbed, stool formed).",
+   "<b>Urinary</b> — kidneys clean the blood and make urine → ureters → bladder → urethra.",
+   "<b>Reproductive</b> — care here always means extra privacy and dignity."]},
+ { ch:"Session 1 · Chapter 28", title:"Ageing and common conditions", points:[
+   "<b>Ageing:</b> thinner and drier skin, weaker bones and muscles, slower digestion, smaller bladder, slower reflexes, reduced hearing and sight. These are normal — disease is not.",
+   "<b>Hypertension</b> = high blood pressure, usually with no symptoms. Report readings above the range you were given.",
+   "<b>Angina</b> = chest pain that comes with effort and goes with rest. <b>Heart attack (MI)</b> = pain that does not go, with sweating, nausea and breathlessness — an emergency; stay with the person and call for help.",
+   "<b>Heart failure</b> = the heart cannot pump well. Look for swollen legs and feet, sudden weight gain, breathlessness lying flat, and tiredness.",
+   "<b>COPD</b> = long-term lung damage; breathless, cough, sputum. <b>Asthma</b> = the airways narrow in attacks, with wheeze.",
+   "<b>Pneumonia</b> = infection in the lungs. <b>Influenza</b> = flu virus. <b>Tuberculosis (TB)</b> = airborne bacteria; long cough, weight loss, night sweats."]},
+ { ch:"Session 2 · Chapter 12", title:"Infection and the chain of infection", points:[
+   "<b>Microbe</b> = a small living thing. A <b>pathogen</b> is a microbe that causes disease. <b>Infection</b> = a disease caused by a pathogen.",
+   "<b>Most at risk:</b> older people, babies, people with long-term illness, people who are weak, poorly fed, or have wounds or tubes.",
+   "<b>The chain of infection:</b> pathogen → reservoir (where it lives) → portal of exit → <b>spread</b> (mode of transmission) → portal of entry → susceptible host.",
+   "<b>The CNA breaks the chain</b> mostly at <b>spread</b> — hand hygiene, gloves, clean equipment, correct linen and waste handling.",
+   "<b>Report:</b> fever, redness, swelling, heat, pain, new or bad-smelling drainage, cough, burning urine — and in an older person, <b>new confusion may be the only early sign</b>."]},
+ { ch:"Session 2 · Chapter 12", title:"Asepsis, hand hygiene and PPE", points:[
+   "<b>Medical asepsis (clean technique)</b> = reducing the number of microbes. <b>Surgical asepsis (sterile technique)</b> = removing all of them; used for sterile procedures.",
+   "<b>WHO five moments:</b> before touching a person · before a clean or aseptic task · after body fluid exposure risk · after touching a person · after touching their surroundings.",
+   "<b>Alcohol hand rub</b> 20–30 seconds when hands look clean. <b>Soap and water</b> 40–60 seconds when hands are visibly dirty, after toilet care and body fluids, when the person has diarrhoea, and before eating.",
+   "<b>Putting on PPE (donning):</b> hand hygiene → gown → mask → eye protection → gloves. <b>Taking off (doffing):</b> gloves → eye protection → gown → mask → hand hygiene. Gloves are always dirtiest, so they come off first.",
+   "<b>Standard precautions</b> are used for <b>every</b> person, every time — treat all blood and body fluids as infectious.",
+   "<b>Transmission-based precautions:</b> contact · droplet · airborne. TB is <b>airborne</b>; influenza is <b>droplet</b>; MRSA in a wound is <b>contact</b>.",
+   "<b>Sharps</b> go straight into the sharps box — never re-cap a needle. Linen is never shaken and is held away from your uniform."]},
+ { ch:"Session 3 · Chapters 21 & 26", title:"Vital signs, oxygen and pain", points:[
+   "<b>Vital signs:</b> temperature · pulse · respirations · blood pressure (and pain, often called the fifth vital sign).",
+   "<b>Normal adult ranges:</b> temperature about 36.5–37.5 °C · pulse 60–100 beats a minute · respirations 12–20 a minute · blood pressure below 120/80, and reported above 140/90 · SpO₂ 95–100%.",
+   "<b>Count respirations without telling the person</b>, keeping your fingers on the wrist — breathing changes when people know they are being watched.",
+   "<b>Low oxygen:</b> restlessness, new confusion, fast breathing, sitting upright, blue lips or nail beds. Restlessness and confusion often come <b>first</b>.",
+   "<b>Oxygen is a medication.</b> The CNA may give comfort, position the person upright, check the tubing is not kinked and report — but <b>never change the flow rate</b>.",
+   "<b>Recording:</b> write it straight away, with the time; use the facility's chart; report anything outside the range before you record. Never guess or copy yesterday's numbers."]}
+];
+
+/* ══════════════════════ EXAM PARTS ══════════════════════ */
+const PARTS = [
+  { n:1, name:"Part 1 · Identification", info:"Write the correct word or term. Spelling may be slightly different; capital letters do not matter." },
+  { n:2, name:"Part 2 · True or False", info:"Choose True or False." },
+  { n:3, name:"Part 3 · Multiple Choice", info:"Choose the best answer." },
+  { n:4, name:"Part 4 · Case Study", info:"Read each case, then answer the questions about it." },
+  { n:5, name:"Part 5 · Drag and Drop", info:"Drag each card into the correct box — or tap a card, then tap the box. Tap a card in a box to send it back. All boxes must be filled." }
+];
+
+/* ══════════════════════ QUESTION BANK (100) ══════════════════════ */
+const TF = ["True","False"];
+const QUESTIONS = [
+ /* ── PART 1 · IDENTIFICATION (12) ── */
+ {p:1, d:"Ch 7 · Cells", t:"concept", q:"The basic unit of living matter.",
+  a:["cell","cells"], e:"The cell. Cells make tissues, tissues make organs, organs make systems."},
+ {p:1, d:"Ch 7 · Cells", t:"concept", q:"The control centre of the cell, which holds the DNA.",
+  a:["nucleus"], e:"The nucleus. The cell membrane controls what goes in and out; the mitochondria make energy."},
+ {p:1, d:"Ch 7 · Tissue", t:"concept", q:"The tissue that covers the body and lines its cavities.",
+  a:["epithelial","epithelial tissue","epithelium"], e:"Epithelial tissue. The other three are connective, muscle and nervous tissue."},
+ {p:1, d:"Ch 7 · Respiratory", t:"concept", q:"The tiny air sacs in the lungs where oxygen enters the blood.",
+  a:["alveoli","alveolus","alveolar sacs"], e:"The alveoli. Oxygen passes into the blood here and carbon dioxide passes out."},
+ {p:1, d:"Ch 7 · Cardiovascular", t:"concept", q:"Blood vessels that carry blood away from the heart.",
+  a:["arteries","artery"], e:"Arteries carry blood away from the heart; veins bring it back; capillaries do the exchange."},
+ {p:1, d:"Ch 7 · Urinary", t:"concept", q:"The organs that clean the blood and make urine.",
+  a:["kidneys","kidney"], e:"The kidneys. Urine then travels: kidneys → ureters → bladder → urethra."},
+ {p:1, d:"Ch 7 · Endocrine", t:"concept", q:"The chemical messengers made by glands and carried in the blood.",
+  a:["hormones","hormone"], e:"Hormones. Insulin, made by the pancreas, is one of them."},
+ {p:1, d:"Ch 7 · Muscular", t:"concept", q:"A muscle that shortens permanently because the joint was not moved.",
+  a:["contracture","contractures"], e:"A contracture. It is prevented by position changes and range-of-motion exercises."},
+ {p:1, d:"Ch 12 · Infection", t:"concept", q:"A microbe that causes disease.",
+  a:["pathogen","pathogens"], e:"A pathogen. Not all microbes are pathogens — many are harmless or useful."},
+ {p:1, d:"Ch 12 · Asepsis", t:"concept", q:"The practice of reducing the number of microbes — also called clean technique.",
+  a:["medical asepsis","clean technique"], e:"Medical asepsis. Surgical asepsis (sterile technique) removes all microbes."},
+ {p:1, d:"Ch 21 · Vital signs", t:"concept", q:"The number of times a person breathes in one minute.",
+  a:["respirations","respiratory rate","respiration rate"], e:"Respirations. The normal adult range is 12–20 a minute; count without telling the person."},
+ {p:1, d:"Ch 26 · Oxygen", t:"concept", q:"The measurement of how much oxygen is being carried in the blood, taken with a finger probe.",
+  a:["oxygen saturation","spo2","sp o2","pulse oximetry","oxygen sat"], e:"Oxygen saturation (SpO₂). The normal range is 95–100%."},
+ 
+/* ── PART 2 · TRUE OR FALSE (10) ── */
+ {p:2, d:"Ch 7 · Cells", t:"tf", q:"A cell can live without oxygen for as long as it has food.", o:TF, a:1,
+  e:"False. Every cell needs oxygen, water, food, the right temperature and waste removal. Take one away and the cell is damaged."},
+ {p:2, d:"Ch 7 · Cardiovascular", t:"tf", q:"The right side of the heart pumps blood to the lungs.", o:TF, a:0,
+  e:"True. The right side sends blood to the lungs for oxygen; the left side pumps it to the rest of the body."},
+ {p:2, d:"Ch 28 · Ageing", t:"tf", q:"Confusion is a normal part of growing old.", o:TF, a:1,
+  e:"False. Slower thinking can be normal — new confusion is not. It may be the first sign of infection or low oxygen. Report it."},
+ {p:2, d:"Ch 28 · Heart", t:"tf", q:"Chest pain that goes away with rest is more likely angina than a heart attack.", o:TF, a:0,
+  e:"True. Angina eases with rest. Pain that does not go, with sweating and breathlessness, is an emergency."},
+ {p:2, d:"Ch 12 · Infection", t:"tf", q:"Alcohol hand rub is enough after caring for a person with diarrhoea.", o:TF, a:1,
+  e:"False. Wash with soap and water — alcohol does not kill spores such as C. difficile."},
+ {p:2, d:"Ch 12 · PPE", t:"tf", q:"Gloves may be worn for two people if they do not look dirty.", o:TF, a:1,
+  e:"False. One person, one task. Remove the gloves and clean your hands before the next person."},
+ {p:2, d:"Ch 12 · Precautions", t:"tf", q:"Standard precautions are used only for people known to have an infection.", o:TF, a:1,
+  e:"False. Standard precautions are used for every person, every time — many infections are not yet known."},
+ {p:2, d:"Ch 21 · Vital signs", t:"tf", q:"You should tell the person before you count their respirations.", o:TF, a:1,
+  e:"False. Breathing changes when people know they are being watched. Keep your fingers on the wrist and count quietly."},
+ {p:2, d:"Ch 26 · Oxygen", t:"tf", q:"A nursing assistant may increase the oxygen flow rate if the person is short of breath.", o:TF, a:1,
+  e:"False. Oxygen is a medication. Stay with the person, sit them upright, check the tubing, and call the nurse."},
+ {p:2, d:"Ch 21 · Recording", t:"tf", q:"Vital signs should be written down straight away, with the time.", o:TF, a:0,
+  e:"True. Record as soon as you take them. Anything outside the range is reported to the nurse before you record."},
+ 
+/* ── PART 3 · MULTIPLE CHOICE (20) ── */
+ {p:3, d:"Ch 7 · Order", t:"mc", q:"Put these in the correct order, smallest first:",
+  o:["Tissue → cell → organ → system","Cell → tissue → organ → system","Organ → cell → tissue → system","Cell → organ → tissue → system"], a:1,
+  e:"Cells make tissues, tissues make organs, organs work together as systems."},
+ {p:3, d:"Ch 7 · Cells", t:"mc", q:"Which part of the cell makes energy?",
+  o:["The nucleus","The cell membrane","The mitochondria","The cytoplasm"], a:2,
+  e:"The mitochondria. The nucleus controls the cell; the membrane controls what enters and leaves."},
+ {p:3, d:"Ch 7 · Skin", t:"mc", q:"The main job of the skin is to:",
+  o:["Make blood cells","Protect the body and help control temperature","Store food","Produce hormones"], a:1,
+  e:"The skin is the body's first barrier. It also senses touch, heat, cold and pain."},
+ {p:3, d:"Ch 7 · Skeletal", t:"mc", q:"Where are blood cells made?",
+  o:["In the joints","In the bone marrow","In the muscles","In the liver only"], a:1,
+  e:"In the red bone marrow, inside the bones."},
+ {p:3, d:"Ch 7 · Nervous", t:"mc", q:"Which of these should be reported to the nurse at once?",
+  o:["The person asks for a second pillow","New weakness on one side and slurred speech","The person prefers tea to coffee","The person sleeps after lunch"], a:1,
+  e:"New weakness on one side and slurred speech may be a stroke. Stay with the person and call the nurse immediately."},
+ {p:3, d:"Ch 7 · Endocrine", t:"mc", q:"Which gland makes insulin?",
+  o:["The thyroid","The pancreas","The adrenal gland","The pituitary gland"], a:1,
+  e:"The pancreas. Insulin lets the cells use sugar from the blood."},
+ {p:3, d:"Ch 7 · Respiratory", t:"mc", q:"Put the path of air in the correct order:",
+  o:["Nose → bronchi → trachea → alveoli","Nose → trachea → bronchi → alveoli","Trachea → nose → alveoli → bronchi","Nose → alveoli → trachea → bronchi"], a:1,
+  e:"Nose and mouth → trachea → bronchi → smaller tubes → alveoli, where gas exchange happens."},
+ {p:3, d:"Ch 7 · Digestive", t:"mc", q:"Most food is absorbed into the blood in the:",
+  o:["Stomach","Small intestine","Large intestine","Oesophagus"], a:1,
+  e:"The small intestine absorbs the nutrients. The large intestine absorbs water and forms stool."},
+ {p:3, d:"Ch 7 · Urinary", t:"mc", q:"Urine leaves the body through the:",
+  o:["Ureter","Urethra","Bladder","Kidney"], a:1,
+  e:"The urethra. The ureters carry urine from the kidneys down to the bladder."},
+ {p:3, d:"Ch 28 · Heart failure", t:"mc", q:"A resident has gained 2 kg in three days and is breathless when lying flat. This suggests:",
+  o:["Asthma","Tuberculosis","Heart failure","Anaemia"], a:2,
+  e:"Sudden weight gain, swollen legs and breathlessness lying flat are signs of heart failure. Report them."},
+ {p:3, d:"Ch 28 · Emergency", t:"mc", q:"A resident has chest pain that does not stop, is sweating and feels sick. You should FIRST:",
+  o:["Walk him to the nurses' station","Stay with him and call for help immediately","Give him water and wait ten minutes","Write it in the chart and finish your round"], a:1,
+  e:"This may be a heart attack. Never leave him and never walk him — call for help and stay."},
+ {p:3, d:"Ch 28 · Respiratory", t:"mc", q:"Which condition is caused by bacteria and spreads through the air?",
+  o:["Asthma","COPD","Tuberculosis","Heart failure"], a:2,
+  e:"Tuberculosis. Signs include a long cough, weight loss and night sweats."},
+ {p:3, d:"Ch 12 · Chain", t:"mc", q:"Which action breaks the chain of infection at the “spread” link?",
+  o:["Giving the influenza vaccine","Hand hygiene between residents","Covering your own cut","Offering extra fluids"], a:1,
+  e:"Hand hygiene stops the microbe travelling from one person to the next. This is where the CNA breaks the chain most often."},
+ {p:3, d:"Ch 12 · Infection", t:"mc", q:"In an older person, the first sign of an infection is often:",
+  o:["A high fever","New confusion","A skin rash","Weight gain"], a:1,
+  e:"New confusion may be the only early sign. An older person with an infection does not always have a fever."},
+ {p:3, d:"Ch 12 · Hand hygiene", t:"mc", q:"You must use soap and water, not alcohol rub, when:",
+  o:["Your hands look clean","You are going into a room","Your hands are visibly dirty or you gave toilet care","You are leaving the ward"], a:2,
+  e:"Soap and water for visibly dirty hands, after toilet or incontinence care, after body fluids, with diarrhoea, and before eating."},
+ {p:3, d:"Ch 12 · PPE", t:"mc", q:"The correct order for putting ON PPE is:",
+  o:["Gloves, gown, mask, eye protection","Hand hygiene, gown, mask, eye protection, gloves","Gown, gloves, hand hygiene, mask","Mask, gloves, gown, eye protection"], a:1,
+  e:"Donning: hand hygiene → gown → mask → eye protection → gloves. Gloves go on last and come off first."},
+ {p:3, d:"Ch 12 · Precautions", t:"mc", q:"A resident has tuberculosis. Which precautions are used?",
+  o:["Contact","Droplet","Airborne","None — standard precautions are enough"], a:2,
+  e:"Airborne precautions. TB travels in tiny particles that stay in the air."},
+ {p:3, d:"Ch 21 · Vital signs", t:"mc", q:"The normal adult pulse range is:",
+  o:["40–60 beats a minute","60–100 beats a minute","100–120 beats a minute","12–20 beats a minute"], a:1,
+  e:"60–100 beats a minute. 12–20 is the range for respirations."},
+ {p:3, d:"Ch 21 · Blood pressure", t:"mc", q:"Which blood pressure should be reported to the nurse?",
+  o:["118/76","110/70","152/96","120/80"], a:2,
+  e:"152/96 is above 140/90 and must be reported. Always report against the range you were given for that person."},
+ {p:3, d:"Ch 26 · Oxygen", t:"mc", q:"A resident's SpO₂ is 88% and she is restless. You should FIRST:",
+  o:["Increase the oxygen flow rate","Finish your round and report at the end","Stay with her, sit her upright and call the nurse","Record it and say nothing — 88% is normal"], a:2,
+  e:"88% is low. Restlessness is an early sign of low oxygen. Stay, sit her up, call the nurse — and never change the flow rate."},
+ 
+/* ── PART 4 · CASE STUDY (8) ── */
+ {p:4, c:"A", t:"mc", d:"Case A · Heart failure",
+  s:"<b>Case A.</b> Mrs. Noor, 80, has heart failure. This morning her shoes feel tight, her ankles look swollen, and she says she could not sleep unless she sat up. She has gained 2 kg since Monday.",
+  q:"A1. Which group of signs matches heart failure?",
+  o:["Swollen ankles, weight gain, breathless lying flat","Night sweats, long cough, weight loss","Wheeze that comes in attacks","Burning urine and new confusion"], a:0,
+  e:"Swelling, sudden weight gain and breathlessness when lying flat are the classic heart failure signs."},
+ {p:4, c:"A", t:"mc", d:"Case A · Heart failure",
+  q:"A2. What should you do with this information?",
+  o:["Write it at the end of your shift","Tell the nurse now, with the weight, the swelling and what she said","Tell her family first","Raise the head of the bed and say nothing"], a:1,
+  e:"Report a change in condition straight away, with the facts: what you saw, what she said, and the weight."},
+ {p:4, c:"A", t:"mc", d:"Case A · Heart failure",
+  q:"A3. Which action is within the CNA role?",
+  o:["Deciding her fluid tablet should be increased","Telling her she has heart failure getting worse","Raising the head of the bed for comfort and reporting to the nurse","Restricting her fluids yourself"], a:2,
+  e:"Comfort measures and reporting are yours. Diagnosing, telling a diagnosis and changing treatment are not."},
+ {p:4, c:"B", t:"mc", d:"Case B · Infection control",
+  s:"<b>Case B.</b> Mr. Khalid is on contact precautions for MRSA in a leg wound. You are going in to help him wash and to change his bed linen.",
+  q:"B1. What do you put on, and in what order?",
+  o:["Gloves, then gown","Hand hygiene, gown, then gloves","Gown only — MRSA is not airborne","Mask and eye protection only"], a:1,
+  e:"Donning for contact precautions: hand hygiene → gown → gloves. Mask and eye protection are added if splashing is likely."},
+ {p:4, c:"B", t:"mc", d:"Case B · Infection control",
+  q:"B2. You finish the care. What do you take off first?",
+  o:["The gown","The gloves","The mask","Nothing — you remove it all outside the room"], a:1,
+  e:"Gloves come off first because they are the dirtiest, then the gown, then hand hygiene — inside the room."},
+ {p:4, c:"B", t:"mc", d:"Case B · Infection control",
+  q:"B3. What do you do with his used bed linen?",
+  o:["Shake it out to remove crumbs, then bag it","Carry it against your uniform to the sluice","Hold it away from your uniform, do not shake it, and put it straight into the correct bag","Leave it on the floor until the end of your round"], a:2,
+  e:"Never shake linen — it sends microbes into the air. Hold it away from you and bag it straight away."},
+ {p:4, c:"C", t:"mc", d:"Case C · Low oxygen",
+  s:"<b>Case C.</b> At 10:00 Mrs. Amina, who has COPD, says she cannot catch her breath. Her SpO₂ is 89%, respirations 26, pulse 104. Her nasal cannula is lying on the pillow and she is restless.",
+  q:"C1. What is your FIRST action?",
+  o:["Turn the oxygen up until she feels better","Stay with her, sit her upright and replace the cannula as ordered","Go and find the nurse","Write the readings in the chart"], a:1,
+  e:"Stay with her. Sitting upright helps her breathe, and the cannula goes back exactly as ordered — you do not change the rate."},
+ {p:4, c:"C", t:"mc", d:"Case C · Low oxygen",
+  q:"C2. Which report to the nurse is BEST?",
+  o:["“Nurse, Mrs. Amina is not well today.”","“Nurse, I think Mrs. Amina needs more oxygen.”","“Nurse, Mrs. Amina's oxygen is 89%, respirations 26, pulse 104. She is restless and says she cannot catch her breath. Can you come now?”","“Nurse, Mrs. Amina took her oxygen off again.”"], a:2,
+  e:"Report the measurements, what you saw and what she said, then make a clear request. Do not name a diagnosis or a treatment."},
+ {p:1, d:"Ch 7 · Cardiovascular", t:"concept", q:"The smallest blood vessels, where oxygen and waste are exchanged.",
+  a:["capillaries","capillary"], e:"Capillaries. Their walls are one cell thick so oxygen can pass into the tissue and waste can pass out."},
+ {p:1, d:"Ch 7 · Respiratory", t:"concept", q:"The large muscle below the lungs that moves down when you breathe in.",
+  a:["diaphragm"], e:"The diaphragm. It flattens and pulls air in; it relaxes upward and pushes air out."},
+ {p:1, d:"Ch 7 · Skeletal", t:"concept", q:"The place where two bones meet.",
+  a:["joint","joints"], e:"A joint. Joints that are not moved become stiff, and the muscle shortens into a contracture."},
+ {p:1, d:"Ch 7 · Digestive", t:"concept", q:"The tube that carries food from the mouth to the stomach.",
+  a:["oesophagus","esophagus","gullet"], e:"The oesophagus. The path is mouth → oesophagus → stomach → small intestine → large intestine."},
+ {p:1, d:"Ch 7 · Nervous", t:"concept", q:"The brain and the spinal cord together.",
+  a:["central nervous system","cns"], e:"The central nervous system. The nerves that branch out from it are the peripheral nervous system."},
+ {p:1, d:"Ch 7 · Integumentary", t:"concept", q:"The outer layer of the skin.",
+  a:["epidermis"], e:"The epidermis. Below it is the dermis, which holds blood vessels, nerves and sweat glands."},
+ {p:2, d:"Ch 7 · Cardiovascular", t:"tf", q:"Veins carry blood away from the heart.", o:TF, a:1,
+  e:"False. Arteries carry blood away from the heart; veins bring it back."},
+ {p:2, d:"Ch 7 · Integumentary", t:"tf", q:"The skin is the largest organ of the body.", o:TF, a:0,
+  e:"True. It is the body's first barrier against infection, and it helps control temperature."},
+ {p:2, d:"Ch 7 · Urinary", t:"tf", q:"Urine is made in the bladder.", o:TF, a:1,
+  e:"False. The kidneys make urine. The bladder only stores it."},
+ {p:2, d:"Ch 7 · Muscular", t:"tf", q:"A joint that is not moved can become stiff and form a contracture.", o:TF, a:0,
+  e:"True. Position changes and range-of-motion exercises prevent this."},
+ {p:2, d:"Ch 28 · Ageing", t:"tf", q:"Thinner, drier skin is a normal change of ageing.", o:TF, a:0,
+  e:"True. Thinner skin tears and bruises more easily, so handle limbs gently and keep the skin moisturised."},
+ {p:3, d:"Ch 7 · Tissue", t:"mc", q:"Which tissue carries messages around the body?",
+  o:["Epithelial tissue","Connective tissue","Muscle tissue","Nervous tissue"], a:3,
+  e:"Nervous tissue. Epithelial covers and lines, connective joins and supports, muscle moves."},
+ {p:3, d:"Ch 7 · Skin", t:"mc", q:"Which of these does the skin do with the help of sunlight?",
+  o:["Makes red blood cells","Makes vitamin D","Makes insulin","Makes hormones for growth"], a:1,
+  e:"The skin makes vitamin D when sunlight reaches it. Vitamin D helps the body use calcium for bones."},
+ {p:3, d:"Ch 7 · Blood", t:"mc", q:"The main job of red blood cells is to:",
+  o:["Fight infection","Carry oxygen","Stop bleeding","Digest food"], a:1,
+  e:"Red cells carry oxygen. White cells fight infection and platelets help clotting."},
+ {p:3, d:"Ch 7 · Digestive", t:"mc", q:"Which part absorbs water and forms stool?",
+  o:["The stomach","The small intestine","The large intestine","The liver"], a:2,
+  e:"The large intestine. The small intestine absorbs the nutrients before it."},
+ {p:3, d:"Ch 7 · Endocrine", t:"mc", q:"The thyroid and the adrenal glands belong to which system?",
+  o:["The nervous system","The endocrine system","The lymphatic system","The urinary system"], a:1,
+  e:"The endocrine system. Its glands release hormones into the blood."},
+ {p:3, d:"Ch 7 · Nervous", t:"mc", q:"Which organ is the control centre of the nervous system?",
+  o:["The heart","The brain","The spinal cord","The lungs"], a:1,
+  e:"The brain. The spinal cord carries the messages between the brain and the body."},
+ {p:3, d:"Ch 21 · Vital signs", t:"mc", q:"The normal adult body temperature is about:",
+  o:["34.0–35.0 °C","36.5–37.5 °C","38.0–39.0 °C","39.5–40.0 °C"], a:1,
+  e:"About 36.5–37.5 °C. Report a temperature above the range you were given — and remember an older person may have an infection without a fever."},
+ {p:3, d:"Ch 28 · Ageing", t:"mc", q:"Which of these is a NORMAL change of ageing?",
+  o:["New confusion overnight","Slower digestion and a smaller bladder","Chest pain when walking","Blood in the urine"], a:1,
+  e:"Slower digestion and a smaller bladder are normal. The other three are not — report them."},
+ {p:3, d:"Ch 28 · COPD", t:"mc", q:"Which is expected in a resident with COPD?",
+  o:["Sudden chest pain that spreads to the arm","Breathlessness on effort, with a long-term cough and sputum","Swelling of one leg only","A rash over the whole body"], a:1,
+  e:"COPD is long-term lung damage: breathlessness, a lasting cough and sputum. Sudden chest pain spreading to the arm is an emergency."},
+ {p:3, d:"Ch 7 · Skin", t:"mc", q:"Which skin observation must be reported to the nurse?",
+  o:["A small mole she has had for years","New redness over the tailbone that stays red when you press it","Dry skin after a shower","A freckle on the arm"], a:1,
+  e:"Redness that does not go pale when pressed is the first stage of a pressure injury. Report it the same shift."},
+ {p:4, c:"D", t:"mc", d:"Case D · Skin and urinary",
+  s:"<b>Case D.</b> Mr. Rashid, 82, stays in bed most of the day after a stroke. This morning you see redness over his tailbone that stays red when you press it. His urine is dark with a strong smell, and he is more confused than yesterday.",
+  q:"D1. The redness over his tailbone is an early sign of:",
+  o:["A bruise","A pressure injury","An allergy","Normal ageing"], a:1,
+  e:"Redness that stays red when pressed is stage 1 of a pressure injury. It appears over bony areas in people who do not move."},
+ {p:4, c:"D", t:"mc", d:"Case D · Skin and urinary",
+  q:"D2. The dark, strong-smelling urine and the new confusion point to a problem in which system?",
+  o:["The respiratory system","The urinary system","The skeletal system","The endocrine system"], a:1,
+  e:"The urinary system — this may be a urinary tract infection. In an older person, new confusion is often the first sign."},
+ {p:4, c:"D", t:"mc", d:"Case D · Skin and urinary",
+  q:"D3. What do you do?",
+  o:["Massage the red area to bring back the circulation","Report both the skin and the urine to the nurse now, with what you saw","Wait until the end of the shift and write it in the chart","Turn him once before you go home"], a:1,
+  e:"Report both changes straight away. Never massage a red area — it damages the tissue underneath."},
+ {p:4, c:"D", t:"mc", d:"Case D · Skin and urinary",
+  q:"D4. Which action helps protect his skin?",
+  o:["Leave him in one position so he is not disturbed","Change his position at least every two hours and keep the skin clean and dry","Put a plastic sheet directly under him","Rub the area with alcohol"], a:1,
+  e:"Repositioning at least every two hours, with clean dry skin and good nutrition and fluids, is what prevents pressure injuries."},
+
+/* ── PART 1 · IDENTIFICATION (2 more → 20) ── */
+ {p:1, d:"Ch 7 · Skeletal", t:"concept", q:"The soft tissue inside bones where blood cells are made.",
+  a:["bone marrow","marrow","red bone marrow"], e:"Bone marrow. Bones also give shape, protect organs, allow movement and store calcium."},
+ {p:1, d:"Ch 12 · Precautions", t:"concept", q:"The precautions used for EVERY person, every time, as if all blood and body fluids were infectious.",
+  a:["standard precautions","standard"], e:"Standard precautions. Transmission-based precautions (contact, droplet, airborne) are added on top when needed."},
+
+/* ── PART 2 · TRUE OR FALSE (5 more → 20) ── */
+ {p:2, d:"Ch 7 · Respiratory", t:"tf", q:"Gas exchange happens in the trachea.", o:TF, a:1,
+  e:"False. Gas exchange happens in the alveoli, the tiny air sacs at the end of the airways."},
+ {p:2, d:"Ch 12 · Sharps", t:"tf", q:"A used needle should be re-capped before it goes in the sharps box.", o:TF, a:1,
+  e:"False. Never re-cap a needle — that is when most needle-stick injuries happen. It goes straight into the sharps box."},
+ {p:2, d:"Ch 21 · Pain", t:"tf", q:"Pain is often called the fifth vital sign.", o:TF, a:0,
+  e:"True. Ask the person about pain, believe what they say, and report it — pain is whatever the person says it is."},
+ {p:2, d:"Ch 7 · Endocrine", t:"tf", q:"Hormones travel around the body in the blood.", o:TF, a:0,
+  e:"True. Glands release hormones into the blood, which carries them to the organs they control."},
+ {p:2, d:"Ch 28 · Infection", t:"tf", q:"An older person with an infection always has a fever.", o:TF, a:1,
+  e:"False. New confusion may be the only early sign. Report a change in behaviour even without a fever."},
+
+/* ── PART 3 · MULTIPLE CHOICE (5 more → 35) ── */
+ {p:3, d:"Ch 7 · Lymphatic", t:"mc", q:"The main job of the lymphatic and immune system is to:",
+  o:["Move the bones","Drain fluid and fight infection","Digest fat","Make urine"], a:1,
+  e:"It drains extra fluid from the tissues and helps the body fight infection."},
+ {p:3, d:"Ch 12 · Asepsis", t:"mc", q:"Surgical asepsis means:",
+  o:["Reducing the number of microbes","Removing all microbes and spores","Washing your hands only","Wearing gloves for every task"], a:1,
+  e:"Surgical asepsis (sterile technique) removes all microbes. Medical asepsis (clean technique) only reduces them."},
+ {p:3, d:"Ch 12 · Precautions", t:"mc", q:"A resident has influenza. Which precautions are added?",
+  o:["Contact","Droplet","Airborne","None"], a:1,
+  e:"Droplet precautions. Flu travels in larger droplets from coughing and sneezing, which fall quickly."},
+ {p:3, d:"Ch 21 · Vital signs", t:"mc", q:"You count a resident's respirations as 8 a minute. You should:",
+  o:["Record it and carry on","Report it to the nurse straight away","Count again tomorrow","Wake the person and ask them to breathe faster"], a:1,
+  e:"8 is below the normal range of 12–20. Report anything outside the range before you record it."},
+ {p:3, d:"Ch 26 · Oxygen", t:"mc", q:"Which is an EARLY sign of low oxygen?",
+  o:["Blue lips","Restlessness and new confusion","Cold hands","Sleeping after lunch"], a:1,
+  e:"Restlessness and new confusion come first. Blue lips and nail beds are late signs — do not wait for them."},
+
+/* ── PART 4 · CASE STUDY (3 more → 15) ── */
+ {p:4, c:"E", t:"mc", d:"Case E · Infection after surgery",
+  s:"<b>Case E.</b> Mrs. Salma, 68, had hip surgery five days ago. This morning her wound dressing has new yellow drainage with a smell. Her temperature is 38.4 °C, her pulse is 112 and she says she feels cold and shivery.",
+  q:"E1. Which of her signs point to an infection?",
+  o:["Only the temperature","The drainage, the smell, the temperature and the fast pulse","Only the shivering","None — this is normal after surgery"], a:1,
+  e:"New or bad-smelling drainage, fever and a fast pulse together suggest infection. Report all of it."},
+ {p:4, c:"E", t:"mc", d:"Case E · Infection after surgery",
+  q:"E2. What do you do with the dressing?",
+  o:["Remove it to look at the wound","Leave it, and report to the nurse now","Clean the wound yourself","Cover it with a second dressing"], a:1,
+  e:"Wound care is a nursing task. Leave the dressing alone, keep her comfortable, and report what you saw."},
+ {p:4, c:"E", t:"mc", d:"Case E · Infection after surgery",
+  q:"E3. Before you leave her room, what protects the next resident you care for?",
+  o:["Closing her door","Removing your gloves and cleaning your hands","Writing your notes","Opening the window"], a:1,
+  e:"Hand hygiene after care is where the CNA breaks the chain of infection — at the spread link."},
+
+/* ── PART 5 · DRAG AND DROP (10) ── */
+ {p:5, d:"Ch 7 · Levels of organisation", t:"order",
+  q:"Put these in order, from the smallest to the largest.",
+  items:["Cell","Tissue","Organ","System"],
+  e:"Cells make tissues, tissues make organs, organs work together as systems."},
+ {p:5, d:"Ch 7 · Respiratory", t:"order",
+  q:"Put the path of air in order, from outside the body to where oxygen enters the blood.",
+  items:["Nose and mouth","Trachea","Bronchi","Alveoli"],
+  e:"Nose and mouth → trachea → bronchi → alveoli. Gas exchange happens in the alveoli."},
+ {p:5, d:"Ch 7 · Urinary", t:"order",
+  q:"Put the path of urine in order, from where it is made to where it leaves the body.",
+  items:["Kidneys","Ureters","Bladder","Urethra"],
+  e:"The kidneys make urine, the ureters carry it down, the bladder stores it, the urethra lets it out."},
+ {p:5, d:"Ch 7 · Digestive", t:"order",
+  q:"Put the path of food in order.",
+  items:["Mouth","Oesophagus","Stomach","Small intestine","Large intestine"],
+  e:"The small intestine absorbs the nutrients; the large intestine absorbs water and forms stool."},
+ {p:5, d:"Ch 12 · PPE", t:"order",
+  q:"Put these in order for PUTTING ON personal protective equipment.",
+  items:["Hand hygiene","Gown","Mask","Eye protection","Gloves"],
+  e:"Donning: hand hygiene → gown → mask → eye protection → gloves. Gloves go on last."},
+ {p:5, d:"Ch 12 · PPE", t:"order",
+  q:"Put these in order for TAKING OFF personal protective equipment.",
+  items:["Gloves","Eye protection","Gown","Mask","Hand hygiene"],
+  e:"Doffing: gloves → eye protection → gown → mask → hand hygiene. Gloves are the dirtiest, so they come off first."},
+ {p:5, d:"Ch 12 · Chain of infection", t:"order",
+  q:"Put the six links of the chain of infection in order.",
+  items:["Pathogen","Reservoir","Portal of exit","Spread","Portal of entry","Susceptible host"],
+  e:"The nursing assistant breaks the chain most often at SPREAD — with hand hygiene, gloves and clean equipment."},
+ {p:5, d:"Ch 7 · Systems", t:"match",
+  q:"Drag each organ to the system it belongs to.",
+  left:["Respiratory system","Urinary system","Integumentary system","Cardiovascular system"],
+  items:["Alveoli","Kidney","Skin","Heart"],
+  e:"Alveoli → respiratory · kidney → urinary · skin → integumentary · heart → cardiovascular."},
+ {p:5, d:"Ch 12 · Precautions", t:"match",
+  q:"Drag the correct precautions to each condition.",
+  left:["Tuberculosis","Influenza","MRSA in a wound","A person with no known infection"],
+  items:["Airborne precautions","Droplet precautions","Contact precautions","Standard precautions only"],
+  e:"TB is airborne · influenza is droplet · MRSA in a wound is contact · and standard precautions are used for everyone, always."},
+ {p:5, d:"Ch 21 · Vital signs", t:"match",
+  q:"Drag the normal adult range to each vital sign.",
+  left:["Temperature","Pulse","Respirations","Oxygen saturation"],
+  items:["36.5–37.5 °C","60–100 a minute","12–20 a minute","95–100%"],
+  e:"Learn these four by heart — you use them every day, and you report anything outside them."},
+];
+
+/* ══════════════════════ STATE ══════════════════════ */
+let ATTEMPTS = 0;
+try { ATTEMPTS = parseInt(localStorage.getItem("cna_wk1_attempts") || "0", 10) || 0; } catch(e) { ATTEMPTS = 0; }
+function bumpAttempt(){ ATTEMPTS++; try { localStorage.setItem("cna_wk1_attempts", String(ATTEMPTS)); } catch(e) {} }
+let SEL = null, DRAG = null;
+QUESTIONS.sort((a,b) => a.p - b.p);   // keep the five parts in order
+const S = { work:{}, name:"", email:"", idx:0, answers:new Array(QUESTIONS.length).fill(null), started:null, endsAt:null, timer:null, done:false };
+const $ = id => document.getElementById(id);
+const show = id => ["screen-lock","screen-home","screen-exam","screen-result"].forEach(s => $(s).classList.toggle("hidden", s !== id));
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const norm = s => String(s).toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ").trim();
+
+/* ══════════════════════ SCREEN 0 · LOCK ══════════════════════ */
+function bootLock(){
+  const rel = new Date(CONFIG.releaseISO);
+  if (isNaN(rel) || Date.now() >= rel.getTime()) { buildReviewer(); show("screen-home"); return; }
+  $("lock-when").textContent = rel.toLocaleString("en-GB",{dateStyle:"full", timeStyle:"short"});
+  show("screen-lock");
+  const tick = () => {
+    let left = rel.getTime() - Date.now();
+    if (left <= 0) { clearInterval(iv); buildReviewer(); show("screen-home"); return; }
+    left = Math.floor(left/1000);
+    $("cd-h").textContent = String(Math.floor(left/3600)).padStart(2,"0");
+    $("cd-m").textContent = String(Math.floor(left%3600/60)).padStart(2,"0");
+    $("cd-s").textContent = String(left%60).padStart(2,"0");
+  };
+  const iv = setInterval(tick, 1000); tick();
+}
+
+/* ══════════════════════ SCREEN 1 ══════════════════════ */
+function buildReviewer(){
+  $("reviewer").innerHTML = REVIEWER.map((m,i) => `
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <button class="acc w-full flex items-center gap-3 text-left px-5 py-4 hover:bg-slate-50" data-i="${i}">
+        <span class="w-9 h-9 rounded-lg bg-teal-100 text-teal-700 grid place-items-center text-xs font-bold shrink-0">${i+1}</span>
+        <span class="flex-1 min-w-0">
+          <span class="block text-[11px] font-bold uppercase tracking-wider text-brand-600">${m.ch}</span>
+          <span class="block font-display font-bold text-ink-900">${m.title}</span>
+        </span>
+        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform" data-chev="${i}"></i>
+      </button>
+      <div class="hidden px-5 pb-5" data-panel="${i}">
+        <ul class="space-y-2 text-sm text-ink-800 leading-relaxed border-t border-slate-100 pt-4">
+          ${m.points.map(p => `<li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] text-brand-400 mt-2"></i><span>${p}</span></li>`).join("")}
+        </ul>
+      </div>
+    </div>`).join("");
+  document.querySelectorAll(".acc").forEach(b => b.onclick = () => {
+    const i = b.dataset.i, p = document.querySelector(`[data-panel="${i}"]`), c = document.querySelector(`[data-chev="${i}"]`);
+    p.classList.toggle("hidden"); c.classList.toggle("rotate-180");
+  });
+}
+function validReg(){
+  const n = $("reg-name").value.trim(), e = $("reg-email").value.trim();
+  const ok = n.length >= 3 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  $("btn-start").disabled = !ok;
+  const msg = $("reg-msg");
+  if (e && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { msg.textContent = "Please write a complete email address."; msg.classList.remove("hidden"); }
+  else msg.classList.add("hidden");
+}
+$("reg-name").addEventListener("input", validReg);
+$("reg-email").addEventListener("input", validReg);
+
+/* ══════════════════════ SCREEN 2 · EXAM ══════════════════════ */
+$("btn-start").onclick = () => {
+  if (CONFIG.maxAttempts > 0 && ATTEMPTS >= CONFIG.maxAttempts) {
+    alert("You have used all " + CONFIG.maxAttempts + " attempts for this exam. Please speak with your instructor.");
+    return;
+  }
+  bumpAttempt();
+  S.name = $("reg-name").value.trim(); S.email = $("reg-email").value.trim();
+  S.started = new Date(); S.endsAt = Date.now() + CONFIG.minutes*60000; S.idx = 0; S.done = false;
+  S.answers = new Array(QUESTIONS.length).fill(null); S.work = {}; SEL = null; DRAG = null;
+  $("exam-name").textContent = S.name;
+  $("avatar").textContent = S.name.split(/\s+/).map(w => w[0]).slice(0,2).join("").toUpperCase();
+  show("screen-exam"); window.scrollTo(0,0);
+  renderQ(); renderPalette(); updateBar();
+  S.timer = setInterval(tickClock, 250); tickClock();
+};
+function tickClock(){
+  let left = Math.max(0, S.endsAt - Date.now());
+  const s = Math.floor(left/1000);
+  $("clock").textContent = String(Math.floor(s/60)).padStart(2,"0") + ":" + String(s%60).padStart(2,"0");
+  $("clock").classList.toggle("text-brand-600", s <= 300);
+  if (left <= 0 && !S.done) finish(true);
+}
+function renderQ(){
+  const i = S.idx, q = QUESTIONS[i], val = S.answers[i], P = partOf(q.p);
+  const first = QUESTIONS.findIndex(x => x.p === q.p);
+  const numInPart = i - first + 1, totalInPart = QUESTIONS.filter(x => x.p === q.p).length;
+  let input = "";
+  if (q.t === "mc" || q.t === "tf") {
+    const cols = q.t === "tf" ? "sm:grid-cols-2" : "";
+    input = `<div class="grid ${cols} gap-2">` + q.o.map((o,k) => `
+      <label class="flex items-start gap-3 rounded-xl border ${val===k?'border-brand-500 bg-brand-50':'border-slate-200 bg-white'} px-4 py-3 cursor-pointer hover:border-brand-300">
+        <input type="radio" name="opt" value="${k}" ${val===k?"checked":""} class="mt-1 accent-pink-500">
+        <span class="text-sm">${esc(o)}</span></label>`).join("") + `</div>`;
+  } else if (q.t === "order" || q.t === "match") {
+    if (!q._bank) { q._bank = q.items.map((_,k)=>k); let sd = i*97+13;
+      for (let k=q._bank.length-1;k>0;k--){ sd=(sd*1103515245+12345)&0x7fffffff; const j2=sd%(k+1); [q._bank[k],q._bank[j2]]=[q._bank[j2],q._bank[k]]; } }
+    const placed = Array.isArray(S.work[i]) ? S.work[i].slice() : new Array(q.items.length).fill(null);
+    const used = placed.filter(x => x !== null);
+    const labels = q.t === "order" ? q.items.map((_,k)=>"Step " + (k+1)) : q.left;
+    const chip = (k, inSlot) => `<span class="chip inline-block rounded-lg ${inSlot?'bg-brand-500 text-white':'bg-teal-500 text-white'} text-sm font-semibold px-3 py-2" draggable="true" data-k="${k}">${esc(q.items[k])}</span>`;
+    const free = q._bank.filter(k => !used.includes(k));
+    input = `
+      <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Cards</p>
+      <div id="bank" class="flex flex-wrap gap-2 mb-5 min-h-[3.25rem] p-3 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50">
+        ${free.length ? free.map(k=>chip(k,false)).join("") : '<span class="text-xs text-slate-400 self-center">All cards are placed. Tap a card below to send it back.</span>'}
+      </div>
+      <div class="space-y-2">
+        ${labels.map((lb,sl)=>`
+          <div class="flex items-stretch gap-2">
+            <div class="w-24 sm:w-44 shrink-0 rounded-lg bg-teal-100 text-teal-800 text-xs font-bold px-3 py-3 flex items-center">${esc(lb)}</div>
+            <div class="slot flex-1 rounded-lg border-2 border-dashed ${placed[sl]!==null?'border-brand-400 bg-brand-50':'border-slate-300 bg-white'} px-3 py-2.5 min-h-[3.25rem] flex items-center" data-s="${sl}">
+              ${placed[sl]!==null ? chip(placed[sl],true) : '<span class="text-xs text-slate-400">Drop a card here</span>'}
+            </div>
+          </div>`).join("")}
+      </div>`;
+  } else if (q.t === "select") {
+    input = `<select id="sel" class="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:ring-2 focus:ring-brand-400 outline-none">
+      <option value="">— Choose your answer —</option>
+      ${q.o.map((o,k) => `<option value="${k}" ${val===k?"selected":""}>${esc(o)}</option>`).join("")}</select>`;
+  } else {
+    input = `<input id="txt" type="text" value="${val?esc(val):""}" placeholder="Write the word or term"
+      class="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:ring-2 focus:ring-brand-400 outline-none">
+      <p class="text-xs text-slate-500 mt-2">One word or a short phrase. Capital letters do not matter.</p>`;
+  }
+  const caseBox = q.s ? `<div class="bg-teal-50 border border-teal-300 rounded-xl p-4 text-sm leading-relaxed mb-4">${q.s}</div>` : "";
+  $("qcard").innerHTML = `
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+      <span class="text-xs font-bold uppercase tracking-wider text-white bg-ink-900 rounded-full px-3 py-1">${esc(P.name)}</span>
+      <span class="text-xs text-slate-500 font-semibold">Item ${i+1} of ${QUESTIONS.length} · ${numInPart} of ${totalInPart} in this part</span>
+    </div>
+    <p class="text-[11px] text-slate-500 mb-4">${esc(P.info)}</p>
+    ${caseBox}
+    <div class="mb-3"><span class="text-[10px] font-bold uppercase tracking-wider text-teal-700 bg-teal-100 rounded-full px-2.5 py-1">${esc(q.d)}</span></div>
+    <p class="font-display text-lg sm:text-xl font-bold text-ink-900 leading-snug mb-5">${esc(q.q)}</p>
+    ${input}`;
+  if (q.t === "mc" || q.t === "tf") document.querySelectorAll('input[name="opt"]').forEach(r => r.onchange = e => save(+e.target.value));
+  if (q.t === "select") $("sel").onchange = e => save(e.target.value === "" ? null : +e.target.value);
+  if (q.t === "fill" || q.t === "concept") $("txt").oninput = e => save(e.target.value.trim() || null);
+  if (q.t === "order" || q.t === "match") {
+    const total = q.items.length;
+    const cur = () => Array.isArray(S.work[i]) ? S.work[i].slice() : new Array(total).fill(null);
+    const commit = arr => { S.work[i] = arr; save(arr.every(x => x !== null) ? arr.slice() : null); renderQ(); renderPalette(); };
+    const place = (k, sl) => { const a = cur(); const old = a.indexOf(k); if (old >= 0) a[old] = null; a[sl] = k; commit(a); };
+    const unplace = sl => { const a = cur(); a[sl] = null; commit(a); };
+    document.querySelectorAll("#qcard .chip").forEach(c => {
+      c.addEventListener("dragstart", e => { e.dataTransfer.setData("text/plain", c.dataset.k); DRAG = +c.dataset.k; });
+      c.onclick = e => {
+        e.stopPropagation();
+        const inSlot = c.closest(".slot");
+        if (inSlot) { unplace(+inSlot.dataset.s); return; }
+        if (SEL === +c.dataset.k) { SEL = null; c.classList.remove("sel"); }
+        else { SEL = +c.dataset.k; document.querySelectorAll("#qcard .chip").forEach(x=>x.classList.remove("sel")); c.classList.add("sel"); }
+      };
+    });
+    document.querySelectorAll("#qcard .slot").forEach(sl => {
+      sl.addEventListener("dragover", e => { e.preventDefault(); sl.classList.add("over"); });
+      sl.addEventListener("dragleave", () => sl.classList.remove("over"));
+      sl.addEventListener("drop", e => { e.preventDefault(); sl.classList.remove("over");
+        const k = DRAG !== null ? DRAG : +e.dataTransfer.getData("text/plain"); DRAG = null;
+        if (!isNaN(k)) place(k, +sl.dataset.s); });
+      sl.onclick = () => { if (SEL !== null) { const k = SEL; SEL = null; place(k, +sl.dataset.s); } };
+    });
+    const bank = document.getElementById("bank");
+    if (bank) {
+      bank.addEventListener("dragover", e => e.preventDefault());
+      bank.addEventListener("drop", e => { e.preventDefault();
+        const k = DRAG !== null ? DRAG : +e.dataTransfer.getData("text/plain"); DRAG = null;
+        const a = cur(); const old = a.indexOf(k); if (old >= 0) { a[old] = null; commit(a); } });
+    }
+  }
+  $("btn-prev").disabled = i === 0;
+  $("btn-prev").classList.toggle("opacity-40", i === 0);
+  $("btn-next").innerHTML = i === QUESTIONS.length-1 ? 'Review &amp; submit <i class="fa-solid fa-flag-checkered ml-1"></i>' : 'Next <i class="fa-solid fa-arrow-right ml-1"></i>';
+}
+function save(v){ S.answers[S.idx] = v; const t = QUESTIONS[S.idx].t; if (t === "mc" || t === "tf") renderQ(); renderPalette(); updateBar(); }
+function renderPalette(){
+  let html = "";
+  PARTS.forEach(P => {
+    const idx = QUESTIONS.map((q,i) => q.p === P.n ? i : -1).filter(i => i >= 0);
+    if (!idx.length) return;
+    html += `<p class="text-[10px] font-bold uppercase tracking-wider text-brand-600 mt-3 mb-1.5 first:mt-0">${esc(P.name)}</p><div class="grid grid-cols-6 gap-2">`;
+    idx.forEach(i => {
+      const done = S.answers[i] !== null && S.answers[i] !== "";
+      const cls = i === S.idx ? "bg-brand-500 text-white" : done ? "bg-teal-500 text-white" : "bg-slate-200 text-slate-600 hover:bg-slate-300";
+      html += `<button class="pal-btn pal h-9 rounded-lg text-xs font-bold ${cls}" data-i="${i}">${i+1}</button>`;
+    });
+    html += `</div>`;
+  });
+  $("palette").innerHTML = html;
+  document.querySelectorAll(".pal").forEach(b => b.onclick = () => { S.idx = +b.dataset.i; renderQ(); renderPalette(); window.scrollTo({top:0,behavior:"smooth"}); });
+}
+function updateBar(){
+  const done = S.answers.filter(a => a !== null && a !== "").length;
+  $("bar").style.width = Math.round(done/QUESTIONS.length*100) + "%";
+  $("progress-txt").textContent = `${done} of ${QUESTIONS.length} saved`;
+}
+$("btn-next").onclick = () => {
+  if (S.idx < QUESTIONS.length-1) { S.idx++; renderQ(); renderPalette(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else confirmSubmit();
+};
+$("btn-prev").onclick = () => { if (S.idx > 0) { S.idx--; renderQ(); renderPalette(); window.scrollTo({top:0,behavior:"smooth"}); } };
+$("btn-submit").onclick = confirmSubmit;
+function confirmSubmit(){
+  const blank = S.answers.filter(a => a === null || a === "").length;
+  const msg = blank ? `You have ${blank} item(s) with no answer. Submit anyway?` : "Submit your exam now?";
+  if (window.confirm(msg)) finish(false);
+}
+
+/* ══════════════════════ GRADING ══════════════════════ */
+function isCorrect(q, ans){
+  if (ans === null || ans === "") return false;
+  if (q.t === "mc" || q.t === "select" || q.t === "tf") return ans === q.a;
+  if (q.t === "order" || q.t === "match") return Array.isArray(ans) && ans.length === q.items.length && ans.every((v,k) => v === k);
+  return q.a.some(acc => norm(ans) === norm(acc) || norm(ans).includes(norm(acc)));
+}
+function answerText(q, ans){
+  if (ans === null || ans === "") return "No answer";
+  if (q.t === "order" || q.t === "match") {
+    const labels = q.t === "order" ? ans.map((_,k)=>(k+1)+".") : q.left.map(l=>l+" →");
+    return ans.map((v,k) => labels[k] + " " + (v===null ? "—" : q.items[v])).join("   ");
+  }
+  return (q.t === "mc" || q.t === "select" || q.t === "tf") ? q.o[ans] : String(ans);
+}
+function correctText(q){
+  if (q.t === "order") return q.items.map((t,k) => (k+1)+". "+t).join("   ");
+  if (q.t === "match") return q.items.map((t,k) => q.left[k]+" → "+t).join("   ");
+  return (q.t === "mc" || q.t === "select" || q.t === "tf") ? q.o[q.a] : q.a[0];
+}
+function partOf(n){ return PARTS.find(p => p.n === n); }
+function partScores(){ return PARTS.map(p => { const idx = QUESTIONS.map((q,i)=>q.p===p.n?i:-1).filter(i=>i>=0); const got = idx.filter(i => isCorrect(QUESTIONS[i], S.answers[i])).length; return { part:p, got, total: idx.length }; }); }
+
+function finish(auto){
+  S.done = true; clearInterval(S.timer);
+  const raw = QUESTIONS.reduce((n,q,i) => n + (isCorrect(q, S.answers[i]) ? 1 : 0), 0);
+  const pct = Math.round(raw / QUESTIONS.length * 1000)/10;
+  const pass = pct >= CONFIG.passPct;
+  const mins = Math.max(1, Math.round((Date.now() - S.started.getTime())/60000));
+  const when = new Date().toLocaleString("en-GB",{dateStyle:"medium", timeStyle:"short"});
+
+  $("score-card").innerHTML = `
+    <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+      <div class="text-center sm:text-left">
+        <p class="text-xs uppercase tracking-widest text-slate-400">Raw score</p>
+        <p class="font-display text-5xl font-bold">${raw}<span class="text-2xl text-slate-400">/${QUESTIONS.length}</span></p>
+        <p class="text-3xl font-bold ${pass?'text-teal-300':'text-brand-400'} mt-1">${pct}%</p>
+      </div>
+      <div class="flex-1">
+        <span class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-bold ${pass?'bg-teal-500 text-white':'bg-brand-500 text-white'}">
+          <i class="fa-solid ${pass?'fa-circle-check':'fa-circle-exclamation'}"></i> WRITTEN EXAM: ${pass?'PASS':'FAIL'} · required ${CONFIG.passPct}% (${Math.ceil(CONFIG.passPct/100*QUESTIONS.length)} of ${QUESTIONS.length})
+        </span>
+        <dl class="grid grid-cols-2 gap-x-6 gap-y-2 mt-4 text-sm">
+          <div><dt class="text-slate-400 text-xs uppercase tracking-wider">Candidate</dt><dd class="font-semibold">${esc(S.name)}</dd></div>
+          <div><dt class="text-slate-400 text-xs uppercase tracking-wider">Email</dt><dd class="font-semibold truncate">${esc(S.email)}</dd></div>
+          <div><dt class="text-slate-400 text-xs uppercase tracking-wider">Time used</dt><dd class="font-semibold">${mins} min${auto?' (time ended)':''}</dd></div>
+          <div><dt class="text-slate-400 text-xs uppercase tracking-wider">Submitted</dt><dd class="font-semibold">${when}</dd></div>
+        </dl>
+        <p class="text-[10px] uppercase tracking-widest text-slate-400 mt-5 mb-2">Performance by content area</p>
+        <div class="grid sm:grid-cols-2 gap-2">
+          ${partScores().map(x => `<div class="flex items-center justify-between bg-white/5 rounded-lg px-3 py-2 text-sm">
+            <span class="text-slate-200">${x.part.name}</span>
+            <span class="font-bold ${x.got/x.total >= CONFIG.passPct/100 ? 'text-teal-300' : 'text-brand-300'}">${x.got}/${x.total}</span></div>`).join("")}
+        </div>
+        <div class="mt-4 bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-xs text-slate-200 leading-relaxed">
+          <b class="text-white">Skills evaluation:</b> recorded separately by the instructor. Every skill must be performed correctly, including hand hygiene, identifying the person, consent, privacy and the safe ending steps. Both parts must be passed.
+          <br><span class="text-slate-400">Attempt ${ATTEMPTS}${CONFIG.maxAttempts > 0 ? " of " + CONFIG.maxAttempts : ""}.</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-3">${CONFIG.title} · ${CONFIG.instructor} · Content-area results below show what to restudy.</p>
+      </div>
+    </div>`;
+
+  let rev = "";
+  PARTS.forEach(P => {
+    const idx = QUESTIONS.map((q,i) => q.p === P.n ? i : -1).filter(i => i >= 0);
+    if (!idx.length) return;
+    const got = idx.filter(i => isCorrect(QUESTIONS[i], S.answers[i])).length;
+    rev += `<div class="flex items-center justify-between bg-ink-900 text-white rounded-xl px-4 py-2.5 mt-6 first:mt-0 print-block">
+      <span class="font-display font-bold">${esc(P.name)}</span><span class="text-sm font-bold text-brand-300">${got}/${idx.length}</span></div>`;
+    idx.forEach(i => {
+      const q = QUESTIONS[i], ok = isCorrect(q, S.answers[i]);
+      rev += `<div class="bg-white rounded-2xl border ${ok?'border-teal-300':'border-brand-300'} shadow-sm p-5 print-block">
+        <div class="flex items-start gap-3">
+          <span class="w-8 h-8 rounded-lg grid place-items-center text-xs font-bold shrink-0 ${ok?'bg-teal-100 text-teal-700':'bg-brand-100 text-brand-700'}">${i+1}</span>
+          <div class="min-w-0 flex-1">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">${esc(q.d)}</span>
+            <p class="font-semibold text-ink-900 mt-0.5">${esc(q.q)}</p>
+            <p class="text-sm mt-2"><span class="text-slate-500">Your answer:</span>
+              <span class="${ok?'text-teal-700 font-semibold':'text-brand-700 font-semibold'}">${esc(answerText(q, S.answers[i]))}</span>
+              ${ok?'<i class="fa-solid fa-check text-teal-600 ml-1"></i>':'<i class="fa-solid fa-xmark text-brand-600 ml-1"></i>'}</p>
+            ${ok?'':`<p class="text-sm"><span class="text-slate-500">Correct answer:</span> <span class="font-semibold text-ink-900">${esc(correctText(q))}</span></p>`}
+            <p class="text-sm text-slate-600 bg-slate-50 rounded-lg px-3 py-2 mt-2 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-400 mr-1"></i> ${q.e}</p>
+          </div>
+        </div></div>`;
+    });
+  });
+  $("review").innerHTML = rev;
+
+  show("screen-result"); window.scrollTo(0,0);
+  sendResult({ raw, pct, pass, mins, when });
+}
+
+/* ══════════════════════ EMAIL (FormSubmit AJAX) ══════════════════════ */
+function sendResult(r){
+  const wrong = QUESTIONS.map((q,i) => isCorrect(q, S.answers[i]) ? null : `#${i+1} (${q.d})`).filter(Boolean).join(", ") || "none";
+  const payload = {
+    _subject: `CNA Week 2 Quiz — ${S.name} — ${r.pct}% (${r.pass ? "PASS" : "FAIL"})`,
+    Candidate: S.name, Email: S.email, Exam: CONFIG.title,
+    Score: `${r.raw}/${QUESTIONS.length}`, Percentage: `${r.pct}%`,
+    Result: r.pass ? "PASS" : "FAIL", Benchmark: `${CONFIG.passPct}%`,
+    Duration: `${r.mins} minutes`, Attempt: CONFIG.maxAttempts > 0 ? `${ATTEMPTS} of ${CONFIG.maxAttempts}` : `${ATTEMPTS} (unlimited)`, Submitted: r.when,
+    "Part scores": partScores().map(x => `${x.part.name}: ${x.got}/${x.total}`).join(" | "),
+    "Items missed": wrong
+  };
+  $("mail-status").textContent = "Sending your result to your instructor…";
+  fetch("https://formsubmit.co/ajax/" + encodeURIComponent(CONFIG.email), {
+    method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+    body: JSON.stringify(payload)
+  }).then(res => res.json())
+    .then(() => { $("mail-status").textContent = "Result sent to your instructor."; })
+    .catch(() => { $("mail-status").textContent = "Result could not be emailed — please show this page to your instructor."; });
+}
+
+/* ══════════════════════ RETAKE ══════════════════════ */
+$("btn-retake").onclick = () => {
+  if (CONFIG.maxAttempts > 0 && ATTEMPTS >= CONFIG.maxAttempts) { alert("You have used all " + CONFIG.maxAttempts + " attempts. Please speak with your instructor."); return; }
+  S.answers = new Array(QUESTIONS.length).fill(null); S.work = {}; SEL = null; DRAG = null; S.idx = 0; S.done = false;
+  $("mail-status").textContent = "";
+  show("screen-home"); window.scrollTo(0,0); validReg();
+};
+
+/* ══════════════════════ GUARD & BOOT ══════════════════════ */
+window.addEventListener("beforeunload", e => { if (!S.done && S.started) { e.preventDefault(); e.returnValue = ""; } });
+bootLock(); validReg();
+</script>
+</body>
+</html>
